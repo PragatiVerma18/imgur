@@ -1,5 +1,16 @@
 # Imgur
 
+> This project is a stateless system that processes image data from CSV files, compresses the images asynchronously, and provides APIs for status tracking and webhook notifications.
+
+## Features
+
+- Upload CSV files containing image URLs.
+- Asynchronous image processing and compression.
+- Store processed images in Cloudinary.
+- Check the status of image processing jobs.
+- Download processed image data as a CSV file.
+- Webhook notifications upon job completion.
+
 ## System Design
 
 ### Tech Stack
@@ -8,7 +19,6 @@
 - **Database**: PostgreSQL
 - **Storage**: Cloudinary
 - **Asynchronous Processing**: Celery + Redis
-- **Infrastructure**: Deployed on AWS
 
 > For a detailed system design, refer to the [system_design.md](./system-design.md).
 

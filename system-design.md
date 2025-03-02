@@ -132,9 +132,9 @@ We are using a **SQL database** (PostgreSQL) due to:
 
 - **Backend:** Django
 - **Database:** PostgreSQL
-- **Storage:** Cloudinary (replacing AWS S3)
+- **Storage:** Cloudinary (alternatively AWS S3)
 - **Asynchronous Processing:** Celery + Redis
-- **Infrastructure:** Deployed on AWS
+- **Infrastructure:** Deployed on AWS/Render
 
 ![System Design Diagram](./system_design.png)
 
