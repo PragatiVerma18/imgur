@@ -13,6 +13,7 @@ This stateless system processes image data from CSV files, compresses the images
    - Accepts a CSV file and validates the format.
    - Stores the request in the database and returns a unique request ID.
    - Triggers the asynchronous image processing.
+   - Optionally accepts a webhook URL to notify upon completion.
 
 2. **Image Processing Service**
 
@@ -27,16 +28,22 @@ This stateless system processes image data from CSV files, compresses the images
    - Allows users to check processing status using the request ID.
    - Returns input and output image details.
 
-4. **Database**
+4. **Output CSV API**
+
+   - Allows users to download a CSV file with input and output image URLs.
+   - Returns a CSV file with the processed image data.
+
+5. **Database**
 
    - Stores CSV metadata, image processing statuses, and input/output URLs.
    - No user table is needed, as the system is stateless.
 
-5. **Storage Service**
+6. **Storage Service**
 
    - Stores processed images in **Cloudinary**.
 
-6. **Webhook Handling**
+7. **Webhook Handling**
+
    - Notifies an external system when all images are processed.
 
 ## 3. API Endpoints
@@ -44,7 +51,7 @@ This stateless system processes image data from CSV files, compresses the images
 ### 1. **Upload API**
 
 - **Endpoint:** `POST /upload`
-- **Request:** CSV file upload
+- **Request:** CSV file upload and optional webhook URL
 - **Response:** `{ "request_id": "<unique_id>" }`
 
 ### 2. **Status API**
@@ -52,7 +59,12 @@ This stateless system processes image data from CSV files, compresses the images
 - **Endpoint:** `GET /status/{request_id}`
 - **Response:** Processing status and image URLs
 
-### 3. **Webhook Endpoint**
+### 3. **Output CSV API**
+
+- **Endpoint:** `GET /output_csv/{request_id}`
+- **Response:** CSV file with input and output image URLs
+
+### 4. **Webhook Endpoint**
 
 - **Triggered When:** Image processing is completed
 - **Payload:** `{ "request_id": "<unique_id>", "status": "completed", "output_images": ["url1", "url2"] }`
@@ -72,12 +84,13 @@ We are using a **SQL database** (PostgreSQL) due to:
 
 #### `processing_jobs`
 
-| Column     | Type      | Description                          |
-| ---------- | --------- | ------------------------------------ |
-| job_id     | VARCHAR   | Unique identifier for each job       |
-| status     | ENUM      | `pending`, `processing`, `completed` |
-| created_at | TIMESTAMP | Job submission time                  |
-| updated_at | TIMESTAMP | Last update time                     |
+| Column      | Type      | Description                          |
+| ----------- | --------- | ------------------------------------ |
+| job_id      | VARCHAR   | Unique identifier for each job       |
+| status      | ENUM      | `pending`, `processing`, `completed` |
+| webhook_url | TEXT      | URL to notify upon completion        |
+| created_at  | TIMESTAMP | Job submission time                  |
+| updated_at  | TIMESTAMP | Last update time                     |
 
 #### `images`
 
@@ -96,8 +109,9 @@ We are using a **SQL database** (PostgreSQL) due to:
 1. **Upload API** receives CSV and creates an entry in `processing_jobs`.
 2. **Image Processing Service** fetches, compresses, and stores images in **Cloudinary**.
 3. The database is updated with output image URLs.
-4. **Webhook** is triggered after all images are processed.
+4. **Webhook** is triggered after all images are processed if a webhook URL is provided.
 5. Users can check status via the **Status API**.
+6. Users can download the processed image data via the **Output CSV API**.
 
 ## 6. Image Compression Strategy
 
@@ -121,3 +135,18 @@ We are using a **SQL database** (PostgreSQL) due to:
 - **Storage:** Cloudinary (replacing AWS S3)
 - **Asynchronous Processing:** Celery + Redis
 - **Infrastructure:** Deployed on AWS
+
+![System Design Diagram](./system_design.png)
+
+## 8. AWS S3 vs Cloudinary
+
+| Feature                  | Cloudinary                               | AWS S3                                       |
+| ------------------------ | ---------------------------------------- | -------------------------------------------- |
+| **Ease of Setup**        | Easy to set up with comprehensive SDKs   | Requires more configuration and setup        |
+| **Cost**                 | Cost-effective with a free tier          | Can be more expensive for high usage         |
+| **Image Processing**     | Built-in image processing capabilities   | Requires additional services for processing  |
+| **CDN Integration**      | Integrated CDN for fast delivery         | Requires separate setup for CDN              |
+| **Documentation**        | Comprehensive and easy to follow         | Extensive but can be complex                 |
+| **Use Case Suitability** | Ideal for small to medium-sized projects | Suitable for large-scale enterprise projects |
+
+> Cloudinary was chosen over AWS S3 due to its ease of setup, cost-effectiveness, built-in image processing capabilities, and CDN integration, making it a more suitable choice for this project.
