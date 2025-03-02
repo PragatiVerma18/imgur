@@ -5,9 +5,11 @@ import pandas as pd
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from drf_yasg.utils import swagger_auto_schema
 
 from imgur.jobs.models import ProcessingJob, Image
 from imgur.jobs.tasks import process_images
+from imgur.api.schema import upload_csv_request_body, upload_csv_responses
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +55,13 @@ class CSVUploadSerializer(serializers.Serializer):
 
 
 class UploadCSVView(APIView):
+    @swagger_auto_schema(
+        operation_id="Upload CSV",
+        operation_description="Upload a CSV file for processing",
+        request_body=upload_csv_request_body,
+        responses=upload_csv_responses,
+        security=[],
+    )
     def post(self, request):
         logger.info("Received file upload request")
         if "file" not in request.FILES:

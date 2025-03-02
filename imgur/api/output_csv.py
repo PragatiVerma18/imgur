@@ -4,13 +4,22 @@ import io
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from drf_yasg.utils import swagger_auto_schema
 
 from django.http import HttpResponse
 
 from imgur.jobs.models import ProcessingJob, Image
+from imgur.api.schema import job_id_param, output_csv_responses
 
 
 class OutputCSVView(APIView):
+    @swagger_auto_schema(
+        operation_id="Retrieve Output CSV",
+        operation_description="Fetch the processed CSV file after completion",
+        manual_parameters=[job_id_param],
+        responses=output_csv_responses,
+        security=[],
+    )
     def get(self, request, job_id):
         try:
             job = ProcessingJob.objects.filter(id=job_id).first()

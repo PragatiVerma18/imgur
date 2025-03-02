@@ -3,8 +3,10 @@ import logging
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from drf_yasg.utils import swagger_auto_schema
 
 from imgur.jobs.models import ProcessingJob, Image
+from imgur.api.schema import job_status_responses, job_id_param
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +26,13 @@ class JobStatusSerializer(serializers.ModelSerializer):
 
 
 class JobStatusView(APIView):
+    @swagger_auto_schema(
+        operation_id="Get Job Status",
+        operation_description="Get the status of a processing job",
+        responses=job_status_responses,
+        manual_parameters=[job_id_param],
+        security=[],
+    )
     def get(self, request, job_id):
         logger.info("Received job status request for job ID: %s", job_id)
         try:

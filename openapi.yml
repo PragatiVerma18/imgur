@@ -1,0 +1,493 @@
+openapi: 3.0.3
+info:
+  title: Imgur
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: http://127.0.0.1
+paths:
+  /api/upload/:
+    post:
+      summary: Upload CSV
+      description: Upload CSV
+      operationId: uploadCsv
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                webhook_url:
+                  type: string
+                  example: http://127.0.0.1:8000/admin/jobs/processingjob/
+      responses:
+        '201':
+          description: '201'
+          headers:
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            Content-Length:
+              schema:
+                type: string
+                example: '53'
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Sat, 01 Mar 2025 14:26:41 GMT
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.15
+            Vary:
+              schema:
+                type: string
+                example: Accept, Cookie
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request_id:
+                    type: string
+                    example: 0195521a-2be7-7b47-041d-7f9cc9c1b43a
+              examples:
+                '201':
+                  value:
+                    request_id: 0195521a-2be7-7b47-041d-7f9cc9c1b43a
+        '400':
+          description: '400'
+          headers:
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            Content-Length:
+              schema:
+                type: string
+                example: '36'
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Sun, 02 Mar 2025 07:34:03 GMT
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.15
+            Vary:
+              schema:
+                type: string
+                example: Accept, Cookie
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No file found in request
+              examples:
+                '400':
+                  value:
+                    error: No file found in request
+  /api/status/019555b5-4650-a997-5f5b-af2d0cd2dc12/:
+    get:
+      summary: Get Status
+      description: Get Status
+      operationId: getStatus
+      responses:
+        '200':
+          description: 200 OK
+          headers:
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            Content-Length:
+              schema:
+                type: string
+                example: '1551'
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Sun, 02 Mar 2025 07:17:05 GMT
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.15
+            Vary:
+              schema:
+                type: string
+                example: Accept, Cookie
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 019555b5-4650-a997-5f5b-af2d0cd2dc12
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 019555b5-4658-f17f-7d54-0a891a5ec84e
+                        input_url:
+                          type: string
+                          example: >-
+                            https://images.pexels.com/photos/30818073/pexels-photo-30818073/free-photo-of-elegant-dining-experience-with-burrata-cheese.jpeg
+                        output_url:
+                          type: string
+                          example: >-
+                            https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899701/z1jjzw7q4pbjx6vr9rn0.jpg
+                        product_name:
+                          type: string
+                          example: SKU1
+                        status:
+                          type: string
+                          example: PROCESSED
+                    example:
+                      - id: 019555b5-4658-f17f-7d54-0a891a5ec84e
+                        input_url: >-
+                          https://images.pexels.com/photos/30818073/pexels-photo-30818073/free-photo-of-elegant-dining-experience-with-burrata-cheese.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899701/z1jjzw7q4pbjx6vr9rn0.jpg
+                        product_name: SKU1
+                        status: PROCESSED
+                      - id: 019555b5-4658-fc04-c697-f2b42dc94da8
+                        input_url: >-
+                          https://images.pexels.com/photos/30922278/pexels-photo-30922278/free-photo-of-stack-of-powdered-sugar-donuts-on-plate.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899703/riuude6xt4h1y9hkwjsj.jpg
+                        product_name: SKU1
+                        status: PROCESSED
+                      - id: 019555b5-4659-464c-1e4b-1092ed5bb062
+                        input_url: >-
+                          https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899704/jvdfiiynxynykb6jyzho.jpg
+                        product_name: SKU1
+                        status: PROCESSED
+                      - id: 019555b5-4659-a337-547d-12379ef9872f
+                        input_url: >-
+                          https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899705/eueaxxblgc4xqfaucvmx.jpg
+                        product_name: SKU2
+                        status: PROCESSED
+                      - id: 019555b5-4659-72e9-75c0-a3371d54be1c
+                        input_url: >-
+                          https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899706/lxjx8ibepe50spfdqf4f.jpg
+                        product_name: SKU2
+                        status: PROCESSED
+                  status:
+                    type: string
+                    example: COMPLETED
+              examples:
+                200 OK:
+                  value:
+                    id: 019555b5-4650-a997-5f5b-af2d0cd2dc12
+                    images:
+                      - id: 019555b5-4658-f17f-7d54-0a891a5ec84e
+                        input_url: >-
+                          https://images.pexels.com/photos/30818073/pexels-photo-30818073/free-photo-of-elegant-dining-experience-with-burrata-cheese.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899701/z1jjzw7q4pbjx6vr9rn0.jpg
+                        product_name: SKU1
+                        status: PROCESSED
+                      - id: 019555b5-4658-fc04-c697-f2b42dc94da8
+                        input_url: >-
+                          https://images.pexels.com/photos/30922278/pexels-photo-30922278/free-photo-of-stack-of-powdered-sugar-donuts-on-plate.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899703/riuude6xt4h1y9hkwjsj.jpg
+                        product_name: SKU1
+                        status: PROCESSED
+                      - id: 019555b5-4659-464c-1e4b-1092ed5bb062
+                        input_url: >-
+                          https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899704/jvdfiiynxynykb6jyzho.jpg
+                        product_name: SKU1
+                        status: PROCESSED
+                      - id: 019555b5-4659-a337-547d-12379ef9872f
+                        input_url: >-
+                          https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899705/eueaxxblgc4xqfaucvmx.jpg
+                        product_name: SKU2
+                        status: PROCESSED
+                      - id: 019555b5-4659-72e9-75c0-a3371d54be1c
+                        input_url: >-
+                          https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg
+                        output_url: >-
+                          https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899706/lxjx8ibepe50spfdqf4f.jpg
+                        product_name: SKU2
+                        status: PROCESSED
+                    status: COMPLETED
+        '404':
+          description: '404'
+          headers:
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            Content-Length:
+              schema:
+                type: string
+                example: '25'
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Sun, 02 Mar 2025 07:34:41 GMT
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.15
+            Vary:
+              schema:
+                type: string
+                example: Accept, Cookie
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Job not found
+              examples:
+                '404':
+                  value:
+                    error: Job not found
+  /api/output/019555b5-4650-a997-5f5b-af2d0cd2dc12/:
+    get:
+      summary: Get Output CSV
+      description: Get Output CSV
+      operationId: getOutputCsv
+      responses:
+        '200':
+          description: 200 OK
+          headers:
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            Content-Disposition:
+              schema:
+                type: string
+                example: >-
+                  attachment;
+                  filename="output_019555b5-4650-a997-5f5b-af2d0cd2dc12.csv"
+            Content-Length:
+              schema:
+                type: string
+                example: '970'
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Sun, 02 Mar 2025 07:16:49 GMT
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.15
+            Vary:
+              schema:
+                type: string
+                example: Accept, Cookie
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+          content:
+            text/plain:
+              examples:
+                200 OK:
+                  value: "S. No.,Product Name,Input Image Urls,Output Image Urls\r\n1,SKU1,\"https://images.pexels.com/photos/30818073/pexels-photo-30818073/free-photo-of-elegant-dining-experience-with-burrata-cheese.jpeg, https://images.pexels.com/photos/30922278/pexels-photo-30922278/free-photo-of-stack-of-powdered-sugar-donuts-on-plate.jpeg, https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg\",\"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899701/z1jjzw7q4pbjx6vr9rn0.jpg, https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899703/riuude6xt4h1y9hkwjsj.jpg, https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899704/jvdfiiynxynykb6jyzho.jpg\"\r\n2,SKU2,\"https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg, https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg\",\"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899705/eueaxxblgc4xqfaucvmx.jpg, https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899706/lxjx8ibepe50spfdqf4f.jpg\"\r\n"
+        '400':
+          description: '400'
+          headers:
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            Content-Length:
+              schema:
+                type: string
+                example: '39'
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Sun, 02 Mar 2025 06:59:32 GMT
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.15
+            Vary:
+              schema:
+                type: string
+                example: Accept, Cookie
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Processing not yet finished
+              examples:
+                '400':
+                  value:
+                    error: Processing not yet finished
+        '404':
+          description: '404'
+          headers:
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            Content-Length:
+              schema:
+                type: string
+                example: '25'
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Date:
+              schema:
+                type: string
+                example: Sun, 02 Mar 2025 07:35:30 GMT
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.15
+            Vary:
+              schema:
+                type: string
+                example: Accept, Cookie
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Job not found
+              examples:
+                '404':
+                  value:
+                    error: Job not found
+tags: []

@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "2200b03a-1caf-4aa7-8201-a2ed81553b7f",
+		"name": "Imgur",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10608582"
+	},
+	"item": [
+		{
+			"name": "Upload CSV",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/pragativerma/Downloads/Untitled spreadsheet - Sheet1.csv"
+						},
+						{
+							"key": "webhook_url",
+							"value": "http://127.0.0.1:8000/admin/jobs/processingjob/",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/upload/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"upload",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/pragativerma/Downloads/Untitled spreadsheet - Sheet1 (1).csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/upload/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"upload",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 01 Mar 2025 14:26:41 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"request_id\": \"0195521a-2be7-7b47-041d-7f9cc9c1b43a\"\n}"
+				},
+				{
+					"name": "400",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "webhook_url",
+									"value": "http://127.0.0.1:8000/admin/jobs/processingjob/",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/upload/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"upload",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Mar 2025 07:34:03 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "36"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"No file found in request\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/status/019555b5-4650-a997-5f5b-af2d0cd2dc12/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"status",
+						"019555b5-4650-a997-5f5b-af2d0cd2dc12",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/status/019555b5-4650-a997-5f5b-af2d0cd2dc12/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"status",
+								"019555b5-4650-a997-5f5b-af2d0cd2dc12",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Mar 2025 07:17:05 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1551"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"019555b5-4650-a997-5f5b-af2d0cd2dc12\",\n    \"status\": \"COMPLETED\",\n    \"images\": [\n        {\n            \"id\": \"019555b5-4658-f17f-7d54-0a891a5ec84e\",\n            \"input_url\": \"https://images.pexels.com/photos/30818073/pexels-photo-30818073/free-photo-of-elegant-dining-experience-with-burrata-cheese.jpeg\",\n            \"output_url\": \"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899701/z1jjzw7q4pbjx6vr9rn0.jpg\",\n            \"status\": \"PROCESSED\",\n            \"product_name\": \"SKU1\"\n        },\n        {\n            \"id\": \"019555b5-4658-fc04-c697-f2b42dc94da8\",\n            \"input_url\": \"https://images.pexels.com/photos/30922278/pexels-photo-30922278/free-photo-of-stack-of-powdered-sugar-donuts-on-plate.jpeg\",\n            \"output_url\": \"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899703/riuude6xt4h1y9hkwjsj.jpg\",\n            \"status\": \"PROCESSED\",\n            \"product_name\": \"SKU1\"\n        },\n        {\n            \"id\": \"019555b5-4659-464c-1e4b-1092ed5bb062\",\n            \"input_url\": \"https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg\",\n            \"output_url\": \"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899704/jvdfiiynxynykb6jyzho.jpg\",\n            \"status\": \"PROCESSED\",\n            \"product_name\": \"SKU1\"\n        },\n        {\n            \"id\": \"019555b5-4659-a337-547d-12379ef9872f\",\n            \"input_url\": \"https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg\",\n            \"output_url\": \"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899705/eueaxxblgc4xqfaucvmx.jpg\",\n            \"status\": \"PROCESSED\",\n            \"product_name\": \"SKU2\"\n        },\n        {\n            \"id\": \"019555b5-4659-72e9-75c0-a3371d54be1c\",\n            \"input_url\": \"https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg\",\n            \"output_url\": \"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899706/lxjx8ibepe50spfdqf4f.jpg\",\n            \"status\": \"PROCESSED\",\n            \"product_name\": \"SKU2\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "404",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/status/019555b5-4650-a997-5f5b-af2d0cd2dc13/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"status",
+								"019555b5-4650-a997-5f5b-af2d0cd2dc13",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Mar 2025 07:34:41 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Job not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Output CSV",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/output/019555b5-4650-a997-5f5b-af2d0cd2dc12/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"output",
+						"019555b5-4650-a997-5f5b-af2d0cd2dc12",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/output/019555a4-b8dc-a569-44e2-adbefcc17054/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"output",
+								"019555a4-b8dc-a569-44e2-adbefcc17054",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Mar 2025 06:59:32 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Processing not yet finished\"\n}"
+				},
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/output/019555b5-4650-a997-5f5b-af2d0cd2dc12/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"output",
+								"019555b5-4650-a997-5f5b-af2d0cd2dc12",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Mar 2025 07:16:49 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/csv"
+						},
+						{
+							"key": "Content-Disposition",
+							"value": "attachment; filename=\"output_019555b5-4650-a997-5f5b-af2d0cd2dc12.csv\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "970"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "S. No.,Product Name,Input Image Urls,Output Image Urls\r\n1,SKU1,\"https://images.pexels.com/photos/30818073/pexels-photo-30818073/free-photo-of-elegant-dining-experience-with-burrata-cheese.jpeg, https://images.pexels.com/photos/30922278/pexels-photo-30922278/free-photo-of-stack-of-powdered-sugar-donuts-on-plate.jpeg, https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg\",\"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899701/z1jjzw7q4pbjx6vr9rn0.jpg, https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899703/riuude6xt4h1y9hkwjsj.jpg, https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899704/jvdfiiynxynykb6jyzho.jpg\"\r\n2,SKU2,\"https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg, https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg\",\"https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899705/eueaxxblgc4xqfaucvmx.jpg, https://res.cloudinary.com/dxw5pic6o/image/upload/v1740899706/lxjx8ibepe50spfdqf4f.jpg\"\r\n"
+				},
+				{
+					"name": "404",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/output/019555b5-4650-a997-5f5b-af2d0cd2dc18/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"output",
+								"019555b5-4650-a997-5f5b-af2d0cd2dc18",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sun, 02 Mar 2025 07:35:30 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.15"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Job not found\"\n}"
+				}
+			]
+		}
+	]
+}
