@@ -1,13 +1,16 @@
-from celery import shared_task
 import cloudinary.uploader
-from django.core.exceptions import ObjectDoesNotExist
-from jobs.models import ProcessingJob, Image
-import requests
-from io import BytesIO
-from PIL import Image as PILImage
 import logging
-from django.db import transaction
+import requests
+
+from io import BytesIO
+from celery import shared_task
 from celery.exceptions import MaxRetriesExceededError
+from PIL import Image as PILImage
+
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import transaction
+
+from imgur.jobs.models import ProcessingJob, Image
 
 logger = logging.getLogger(__name__)
 

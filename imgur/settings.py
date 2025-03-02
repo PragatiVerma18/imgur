@@ -49,9 +49,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_celery_results",
     "cloudinary",
-    # "cloudinary_storage",
-    "jobs",
-    "processing",
+    "imgur.jobs",
 ]
 
 MIDDLEWARE = [
