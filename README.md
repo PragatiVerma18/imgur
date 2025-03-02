@@ -89,11 +89,11 @@
 
 ## APIs
 
-| Endpoint                   | Method | Description                                     |
-| -------------------------- | ------ | ----------------------------------------------- |
-| `/upload`                  | POST   | Upload a CSV file for processing                |
-| `/status/{request_id}`     | GET    | Check the status of an image processing job     |
-| `/output_csv/{request_id}` | GET    | Download the processed image data as a CSV file |
+| Endpoint                       | Method | Description                                     |
+| ------------------------------ | ------ | ----------------------------------------------- |
+| `/api/upload`                  | POST   | Upload a CSV file for processing                |
+| `/api/status/{request_id}`     | GET    | Check the status of an image processing job     |
+| `/api/output_csv/{request_id}` | GET    | Download the processed image data as a CSV file |
 
 > See detailed API documentation here - [Redoc](imgur-dg41.onrender.com/)
 
