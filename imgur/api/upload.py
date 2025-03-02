@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 class CSVUploadSerializer(serializers.Serializer):
     file = serializers.FileField()
+    webhook_url = serializers.URLField(required=False)
 
     def validate_file(self, value):
         logger.debug("Starting file validation")
@@ -62,6 +63,7 @@ class UploadCSVView(APIView):
             )
 
         file = request.FILES["file"]
+        webhook_url = request.data.get("webhook_url")
         logger.info("Received file: %s", file.name)
 
         serializer = CSVUploadSerializer(data=request.FILES)
@@ -70,7 +72,7 @@ class UploadCSVView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Create job entry
-        job = ProcessingJob.objects.create()
+        job = ProcessingJob.objects.create(webhook_url=webhook_url)
         logger.info("Created ProcessingJob entry with job ID: %s", job.id)
 
         # Read CSV and store image URLs

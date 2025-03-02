@@ -20,7 +20,7 @@ class OutputCSVView(APIView):
                     {"error": "Job not found"}, status=status.HTTP_404_NOT_FOUND
                 )
 
-            if job.status != "completed":
+            if job.status != ProcessingJob.STATUS_COMPLETED:
                 return Response(
                     {"error": "Processing not yet finished"},
                     status=status.HTTP_400_BAD_REQUEST,

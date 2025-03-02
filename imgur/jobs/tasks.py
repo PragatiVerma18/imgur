@@ -35,8 +35,9 @@ def process_single_image(img):
         # Upload to Cloudinary
         cloudinary_response = cloudinary.uploader.upload(output_buffer)
         img.output_url = cloudinary_response["secure_url"]
-        img.status = "processed"
-        img.save()
+        img.status = Image.STATUS_PROCESSED
+        img.save(update_fields=["output_url", "status", "updated_at"])
+
         logger.info("Processed and uploaded image for URL: %s", img.input_url)
         return True
     except Exception as e:
@@ -48,28 +49,62 @@ def process_single_image(img):
         return False
 
 
+def trigger_webhook(job):
+    """Send webhook notification when job is completed"""
+    if not job.webhook_url:
+        logger.warning("No webhook URL provided for job ID: %s", job.id)
+        return
+
+    # Prepare payload
+    images = Image.objects.filter(job=job).values(
+        "product_name", "input_url", "output_url", "status"
+    )
+    payload = {
+        "job_id": str(job.id),
+        "status": job.status,
+        "images": list(images),
+    }
+
+    try:
+        response = requests.post(job.webhook_url, json=payload, timeout=5)
+        response.raise_for_status()
+        logger.info("Webhook successfully triggered for job ID: %s", job.id)
+    except requests.RequestException as e:
+        logger.error(
+            "Failed to trigger webhook for job ID: %s, error: %s", job.id, str(e)
+        )
+
+
 @shared_task(bind=True, max_retries=5)
 def process_images(self, job_id):
     logger.info("Starting image processing for job ID: %s", job_id)
+
     try:
-        job = ProcessingJob.objects.filter(id=job_id, status="pending").first()
+        # Fetch job if status is PENDING or PROCESSING
+        job = ProcessingJob.objects.filter(
+            id=job_id,
+            status__in=[ProcessingJob.STATUS_PENDING, ProcessingJob.STATUS_PROCESSING],
+        ).first()
 
         if not job:
-            logger.error("Job not found for job ID: %s", job_id)
-            raise ObjectDoesNotExist("Job not found")
+            logger.error("Job not found or already completed for job ID: %s", job_id)
+            return {"error": "Job not found or already completed"}
 
-        with transaction.atomic():
-            job.status = "processing"
-            job.save()
-            logger.info("Job status updated to processing for job ID: %s", job_id)
+        # Only update to "PROCESSING" if it's still "PENDING"
+        if job.status == ProcessingJob.STATUS_PENDING:
+            with transaction.atomic():
+                job.status = ProcessingJob.STATUS_PROCESSING
+                job.save(update_fields=["status", "updated_at"])
+                logger.info("Job status updated to PROCESSING for job ID: %s", job_id)
 
-        images = Image.objects.filter(job=job, status="pending")
+        # Process only pending images
+        images = Image.objects.filter(job=job, status=Image.STATUS_PENDING)
 
         for img in images:
             try:
                 success = process_single_image(img)
                 if not success:
-                    self.retry(countdown=2**self.request.retries)
+                    raise Exception("Image processing failed")
             except Exception:
                 try:
                     self.retry(countdown=2**self.request.retries)
@@ -78,18 +113,20 @@ def process_images(self, job_id):
                         "Max retries exceeded for image URL: %s", img.input_url
                     )
 
-        # Check if all images are processed and have an output URL
-        all_images_processed = (
-            Image.objects.filter(job=job, status="processed").count()
-            == Image.objects.filter(job=job).count()
-        )
+        # Check if all images are processed
+        total_images = Image.objects.filter(job=job).count()
+        processed_images = Image.objects.filter(
+            job=job, status=Image.STATUS_PROCESSED
+        ).count()
 
-        if all_images_processed:
+        if total_images == processed_images:
             with transaction.atomic():
-                # Update job status
-                job.status = "completed"
-                job.save()
-                logger.info("Job status updated to completed for job ID: %s", job_id)
+                job.status = ProcessingJob.STATUS_COMPLETED
+                job.save(update_fields=["status", "updated_at"])
+                logger.info("Job status updated to COMPLETED for job ID: %s", job_id)
+
+            # Trigger webhook after job completion
+            trigger_webhook(job)
 
     except Exception as e:
         logger.error(

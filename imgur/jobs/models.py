@@ -33,28 +33,36 @@ class AuditDates(models.Model):
 
 
 class ProcessingJob(AuditDates, UUIDAsPrimaryKey):
+    STATUS_PENDING = "PENDING"
+    STATUS_PROCESSING = "PROCESSING"
+    STATUS_COMPLETED = "COMPLETED"
+
     STATUS_CHOICES = [
-        ("pending", "Pending"),
-        ("processing", "Processing"),
-        ("completed", "Completed"),
+        (STATUS_PENDING, "Pending"),
+        (STATUS_PROCESSING, "Processing"),
+        (STATUS_COMPLETED, "Completed"),
     ]
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default="pending", db_index=True
+        max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING, db_index=True
     )
+    webhook_url = models.URLField(null=True, blank=True)
 
 
 class Image(AuditDates, UUIDAsPrimaryKey):
+    STATUS_PENDING = "PENDING"
+    STATUS_PROCESSED = "PROCESSED"
+
     STATUS_CHOICES = [
-        ("pending", "Pending"),
-        ("processed", "Processed"),
+        (STATUS_PENDING, "Pending"),
+        (STATUS_PROCESSED, "Processed"),
     ]
 
     job = models.ForeignKey(
         ProcessingJob, on_delete=models.CASCADE, related_name="images", db_index=True
     )
     product_name = models.CharField(max_length=255, default="")
-    input_url = models.TextField()
-    output_url = models.TextField(null=True, blank=True)
+    input_url = models.URLField()
+    output_url = models.URLField(null=True, blank=True)
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default="pending", db_index=True
+        max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING, db_index=True
     )
